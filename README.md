@@ -1,184 +1,195 @@
-🌐✨ AntaShop – E-Commerce Microservices Platform
+# ![AntaShop Banner](https://dummyimage.com/1200x250/111/fff&text=AntaShop+E-Commerce+Platform)
 
-A modern, scalable, and modular backend system for online fashion retail.
-Designed with Spring Boot Microservices, optimized for performance & real-world production use.
+<p align="center">
+  <strong>E-Commerce Platform for Shoes & Fashion</strong><br>
+  Spring Boot Microservices • MySQL • JDK 21 • Docker • React Frontend
+</p>
 
-<div align="center">
-🔥 Microservices Architecture • 🛒 E-Commerce Engine • ☕ Java 21 • 🧵 RabbitMQ • 🚀 Docker Ready
-</div>
-📖 Introduction
+<p align="center">
+  <img src="https://img.shields.io/badge/build-passing-brightgreen?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/java-21-blue?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/spring--boot-3.x-6DB33F?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/mysql-8.0-orange?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/maven-4.0.0-red?style=for-the-badge"/>
+</p>
 
-AntaShop is a complete backend platform for an e-commerce system focused on shoes, clothing, and accessories.
-Built using Spring Boot, Microservices, and modern cloud-ready design, the system provides clean domain separation, high scalability, and flexibility for integration with any frontend (React, Next.js, Flutter…).
+---
 
-🔍 Key objectives:
+# 🛍️ **AntaShop – E-Commerce Microservice Platform**
 
-Create a modular e-commerce system separated into independent microservices.
+**AntaShop** is a modern e-commerce system designed for selling **shoes and fashion items**, built with a clean and scalable **Microservice Architecture**.
 
-Apply real-world engineering concepts: asynchronous messaging, secure authentication, REST API standards.
+The project is developed using **IntelliJ IDEA**, **Spring Boot**, **MySQL**, **Redis**, and **RabbitMQ**, applying real-world backend development practices.
 
-Support growth in traffic with caching, message queues, and distributed architecture.
+### 🎯 Project Goals
+• Build a scalable and maintainable e-commerce backend  
+• Apply microservices for real business workflows  
+• Improve API development, caching, authentication, and async messaging  
+• Separate independent services for easy scaling and deployment  
 
-Provide a strong backend foundation for a large-scale e-commerce project.
+---
 
-🏗️ System Architecture
+# 🏗️ **System Architecture**
 
-Below is the complete ecosystem of AntaShop:
+Backend services included in the system:
 
-/services
- ├── identity-service        → Authentication, JWT, user management
- ├── product-service         → Products, attributes, inventory
- ├── category-service        → Category trees, filters
- ├── cart-service            → Shopping cart, Redis caching
- ├── order-service           → Orders, delivery, workflows
- ├── payment-service         → Payment flow, transactions
- ├── notification-service    → Email, OTP, async events (RabbitMQ)
- └── cloud-service           → Image/file uploads
+• **Identity Service** – JWT authentication, login & registration  
+• **Product Service** – Product CRUD and stock management  
+• **Category Service** – Category and product grouping management  
+• **Cart Service** – User shopping cart operations  
+• **Order Service** – Order creation and tracking  
+• **Payment Service** – Payment workflow (structure ready)  
+• **Notification Service** – Email OTP & notifications  
+• **Cloud Service** – Image upload and media management  
 
-🗺️ High-Level Architecture Diagram
-flowchart LR
-    A[Frontend<br/>(React / NextJS / Mobile)] -->|REST API| B(API Gateway - optional)
+Frontend:  
+• **React + Vite** modern web application  
 
-    B --> C1[Identity Service]
-    B --> C2[Product Service]
-    B --> C3[Category Service]
-    B --> C4[Cart Service]
-    B --> C5[Order Service]
-    B --> C6[Payment Service]
-    B --> C7[Notification Service]
-    B --> C8[Cloud Service]
+---
 
-    C7 <-->|Asynchronous Events| R[(RabbitMQ)]
-    C4 -->|Caching| D[(Redis)]
-    C1 -->|User DB| M1[(MySQL)]
-    C2 -->|Products DB| M2[(MySQL)]
-    C5 -->|Orders DB| M3[(MySQL)]
+# 🛠️ **Tech Stack**
 
-🛠️ Tech Stack
-🌍 Backend
-Tech	Purpose
-Java 21	Modern Java features, high performance
-Spring Boot 3	Core framework for all microservices
-Spring Security + JWT	Authentication & authorization
-Spring Data JPA	ORM & database operations
-Maven	Dependency management
-🗄️ Databases
+## Backend
+• Java 21  
+• Spring Boot 3.x  
+• Spring Web  
+• Spring Data JPA  
+• Spring Security + JWT  
+• Redis Cache  
+• RabbitMQ Messaging  
+• Maven  
 
-MySQL (main relational DB)
+## Database
+• MySQL 8.0  
 
-Supports UTF8MB4 and InnoDB
+## Frontend
+• React.js  
+• Vite  
+• TailwindCSS / SCSS  
 
-⚡ Performance / Messaging
+## DevOps
+• Docker  
+• Docker Compose  
+• Swagger / OpenAPI  
 
-RabbitMQ → async events (email, orders, OTP)
+---
 
-Redis → caching for cart & performance boost
+# 📂 **Project Structure**
 
-🐳 DevOps
+```
+AntaShop/
+│── services/
+│   ├── cart-service/
+│   ├── category-service/
+│   ├── cloud-service/
+│   ├── identity-service/
+│   ├── notification-service/
+│   ├── order-service/
+│   ├── payment-service/
+│   ├── product-service/
+│
+└── README.md
+```
 
-Docker
+---
 
-Docker Compose
+# 🚀 **Getting Started**
 
-Environment-based configuration
+## ⭐ Prerequisites
+• JDK 21  
+• Maven 4.x  
+• MySQL 8  
+• Node.js (for the frontend)  
+• Redis (optional)  
+• Docker (optional)
 
-🔐 Security Layer
+---
 
-The system includes enterprise-level security:
+## 🔧 Backend Setup
 
-✔ JWT token authentication
-✔ Role-based access control (Admin/User)
-✔ Password hashing with BCrypt
-✔ Secure route protection
-✔ OTP email verification (via Notification Service)
+Clone repository:
+```bash
+git clone https://github.com/your-repo/AntaShop.git
+cd AntaShop
+```
 
-🧠 Core Features
-🛍️ E-Commerce
+Configure your environment in:
+```
+src/main/resources/application.yaml
+```
 
-Product catalog & categories
-
-Product variants (size, color…)
-
-Cart operations (add/remove/update)
-
-Order placement & tracking
-
-Payment transaction flow
-
-👤 User Management
-
-Registration & login
-
-Token-based authentication
-
-Profile updates
-
-📩 Notifications
-
-Email sending
-
-OTP codes
-
-System alerts
-
-RabbitMQ event-driven architecture
-
-☁️ Cloud / Media
-
-Image upload
-
-Local or external cloud storage
-
-File validation
-
-🧪 Installation & Setup
-🔧 Requirements
-
-JDK 21
-
-Maven 3.9+
-
-MySQL 8+
-
-RabbitMQ
-
-Redis (optional)
-
-▶️ Build the project
+Build the backend:
+```bash
 mvn clean install
+```
 
-▶️ Run any microservice
-cd identity-service
+Run a service:
+```bash
 mvn spring-boot:run
+```
 
-▶️ Run with Docker
+Open Swagger UI:
+```
+http://localhost:8080/swagger-ui/index.html
+```
+
+---
+
+# 🐳 **Run with Docker**
+
+If Docker Compose is configured:
+```bash
 docker-compose up --build
+```
 
-📁 Folder Structure Overview
-AntaShop-Service
- ├── services
- │    ├── identity-service
- │    ├── product-service
- │    ├── category-service
- │    ├── cart-service
- │    ├── order-service
- │    ├── payment-service
- │    ├── notification-service
- │    └── cloud-service
- ├── README.md
- └── docker-compose.yml (optional)
+---
 
-🎯 Project Goals
+# 📌 **Core Features**
 
-Build a production-ready e-commerce backend.
+• Secure JWT authentication  
+• Product CRUD operations  
+• Category management  
+• Shopping cart functionality  
+• Order placement & tracking  
+• Email notifications (OTP & system alerts)  
+• Payment service structure  
+• RabbitMQ microservice communication  
+• Redis caching for performance  
 
-Practice advanced microservice architecture.
+---
 
-Utilize Docker, Redis, RabbitMQ, and distributed design.
+# 📘 **API Documentation Template**
 
-Create a backend prepared for future scaling.
+### Auth
+```
+POST /api/auth/register  
+POST /api/auth/login
+```
 
-🤝 Contributions
+### Products
+```
+GET /api/products  
+POST /api/products  
+PUT /api/products/{id}  
+DELETE /api/products/{id}
+```
 
-All contributions are welcome!
-Submit a Pull Request or open an Issue if you want to propose new features or fixes.
+### Orders
+```
+POST /api/orders  
+GET /api/orders/user/{userId}
+```
+
+*(Expand this section with your actual API list.)*
+
+---
+
+# 👨‍💻 **Author**
+• **Nguyễn Bá Viên**  
+• Backend Developer – Spring Boot  
+• Email: nguyenbavien.26092005@gmail.com
+
+---
+
+# 📜 **License**
+This project is for **educational and practice use only** and not intended for commercial deployment.
