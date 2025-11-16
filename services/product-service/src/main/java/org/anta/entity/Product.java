@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,6 +27,7 @@ public class Product {
 
     private String description;
 
+    @Column(precision = 12, scale = 2)
     private BigDecimal price;
 
     private String category;
@@ -37,5 +39,8 @@ public class Product {
     @Column(name = "created_at", updatable = false, insertable = false,
             columnDefinition = "timestamp default current_timestamp")
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductVariant> variants = new ArrayList<>();
 
 }

@@ -23,4 +23,15 @@ public class ProductResponse {
     private List<String> images;
 
     private LocalDateTime createdAt;
+
+    private String thumbnail;
+
+    private Integer totalStock;
+
+    private Integer rating = 5;
+
+    private Long sales = 0L;
+
+    private List<ProductVariantResponse> variants;
+
 }

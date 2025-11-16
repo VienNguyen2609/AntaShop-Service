@@ -18,32 +18,36 @@ public class AddressController {
     private final AddressService addressService;
 
     @GetMapping("/allUserAddress/{userId}")
-    public ResponseEntity<Map<List<AddressResponse> , String>> getAllAddressByUserId(
+    public ResponseEntity<List<AddressResponse>> getAllAddressByUserId(
             @PathVariable  Long userId)
     {
-       return ResponseEntity.ok(Map.of(addressService.getAddressById(userId) ,
-               "Get all address successfully"));
+       return ResponseEntity.ok(addressService.getAddressById(userId));
     }
 
 
     @PostMapping("/add/{userId}")
-    public ResponseEntity<Map<AddressResponse, String>> addAddress(
+    public ResponseEntity<AddressResponse> addAddress(
             @PathVariable Long userId,
             @RequestBody AddressRequest addressRequest)
     {
-        return ResponseEntity.ok(Map.of(addressService.add(userId , addressRequest) , "" +
-                "Add address successfully " + " for user: " +userId));
+        return ResponseEntity.ok(addressService.add(userId , addressRequest));
+    }
+
+    @PutMapping("/setDefault/{addressId}/user/{userId}")
+    public ResponseEntity<AddressResponse> setDefaultAddress(
+            @PathVariable Long addressId,
+            @PathVariable Long userId) {
+        return ResponseEntity.ok(addressService.setDefaultAddress(addressId, userId));
     }
 
 
     @PutMapping("/update/addressId/{addressId}/userId/{userId}")
-    public ResponseEntity<Map<AddressResponse, String>> updateAddress(
+    public ResponseEntity<AddressResponse> updateAddress(
             @PathVariable Long addressId ,
             @PathVariable Long userId,
             @RequestBody AddressRequest addressRequest)
     {
-        return ResponseEntity.ok(Map.of(addressService.update(addressId , userId , addressRequest) ,
-                " " + "Update address successfully" + addressId +" for user " + userId));
+        return ResponseEntity.ok(addressService.update(addressId , userId , addressRequest));
     }
 
 

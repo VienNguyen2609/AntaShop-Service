@@ -23,16 +23,20 @@ public class JwtUtil {
 
     private final Key key = Keys.hmacShaKeyFor(SECRET.getBytes());
 
-    public String generateAccessToken(String username, String role) {
+    public String generateAccessToken(Long id, String username, String role, String email, String phoneNumber) {
         return Jwts.builder()
                 .setSubject(username)
+                .claim("id", id)
                 .claim("role", role)
+                .claim("email", email)
+                .claim("phoneNumber", phoneNumber)
                 .claim("type", "access")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + ACCESS_EXPIRATION))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
+
 
     public String generateRefreshToken(String username) {
         return Jwts.builder()

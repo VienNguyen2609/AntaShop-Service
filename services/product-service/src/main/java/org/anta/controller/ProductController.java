@@ -28,22 +28,22 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public Map<ResponseEntity<ProductResponse> , String> addProduct(@RequestBody ProductRequest productRequest){
+    public ResponseEntity<ProductResponse> addProduct(@RequestBody ProductRequest productRequest){
+        //log.info("ADD productRequest: {}", productRequest);            // <-- log toàn bộ DTO
+        //log.info("variants: {}", productRequest.getVariants());
         ProductResponse productResponse = productService.addProduct(productRequest);
-        return Map.of(ResponseEntity.ok(productResponse) , "Created Successfully\n " +
-                "id: "
-                + productResponse.getId()
-                + " name: " + productResponse.getName());
+        return ResponseEntity.ok(productResponse);
     }
 
     @PutMapping("/update/{id}")
-    public Map<ProductResponse , String>  update(@PathVariable Long id , @RequestBody ProductRequest productRequest){
-        return Map.of(productService.updateProduct(id, productRequest) , "Updated id: " +id +" Successfully");
+    public ResponseEntity<ProductResponse>  update(@PathVariable Long id , @RequestBody ProductRequest productRequest) {
+        return ResponseEntity.ok(productService.updateProduct(id, productRequest));
     }
 
     @DeleteMapping("/delete/{id}")
-    public Map<ProductResponse , String> delete(@PathVariable Long id ){
-        return Map.of( productService.deleteProduct(id) , "Deleted id: " +id +" Successfully");
+    public ResponseEntity<String> delete(@PathVariable Long id ){
+        productService.deleteProduct(id);
+        return ResponseEntity.ok("Deleted id: " +id +" Successfully");
     }
 
 

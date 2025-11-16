@@ -36,7 +36,9 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         String input = request.getName() != null ? request.getName() : request.getEmail();
         User user = authService.login(input, request.getPassword());
-        String accessToken = jwtUtil.generateAccessToken(user.getName(), user.getRole().toString());
+        String accessToken = jwtUtil.generateAccessToken(user.getId(),
+                user.getName(), user.getRole().toString(), user.getEmail(), user.getPhoneNumber());
+
         String refreshToken = jwtUtil.generateRefreshToken(user.getName());
         return ResponseEntity.ok(Map.of(
                 "name", user.getName(),
@@ -111,7 +113,8 @@ public class AuthController {
             }
             String username = jwtUtil.extractUsername(refreshToken);
             User user = authService.findByUsername(username);
-            String newAccessToken = jwtUtil.generateAccessToken(user.getName(), user.getRole().toString());
+            String newAccessToken = jwtUtil.generateAccessToken(user.getId(),
+                    user.getName(), user.getRole().toString(), user.getEmail(), user.getPhoneNumber());
             return ResponseEntity.ok(Map.of("accessToken", newAccessToken));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired refresh token");
