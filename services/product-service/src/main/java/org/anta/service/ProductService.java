@@ -4,9 +4,12 @@ package org.anta.service;
 import org.anta.dto.request.ProductRequest;
 import org.anta.dto.response.ProductResponse;
 import org.anta.entity.Product;
+import org.anta.entity.ProductVariant;
 import org.anta.mapper.ProductMapper;
+import org.anta.mapper.ProductVariantMapper;
 import org.anta.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.anta.repository.ProductVariantRepository;
 import org.anta.util.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,20 +25,65 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
+    private final ProductVariantRepository productVariantRepository;
+    private final ProductVariantMapper productVariantMapper;
 
-    @Transactional
-    public List<ProductResponse> getAllProduct(){
-        return productRepository.findAll()
-                .stream()
-                .map(productMapper::toResponse)
-                .collect(Collectors.toList());
+
+    @Transactional(readOnly = true)
+    public List<ProductResponse> getAllProduct() {
+        List<Product> products = productRepository.findAll();
+
+        return products.stream().map(product -> {
+            ProductResponse response = productMapper.toResponse(product);
+
+            List<ProductVariant> variants = productVariantRepository.findByProductId(product.getId());
+            response.setVariants(productVariantMapper.toResponseList(variants));
+
+            int totalStock = variants.stream()
+                    .mapToInt(v -> v.getStock() == null ? 0 : v.getStock())
+                    .sum();
+            response.setTotalStock(totalStock);
+
+            if (response.getImages() != null && !response.getImages().isEmpty()) {
+                response.setThumbnail(response.getImages().get(0));
+            }
+
+            response.setRating(5);
+            response.setSales(0L);
+
+            return response;
+        }).collect(Collectors.toList());
     }
 
-    public ProductResponse getProductById(Long id){
+
+    @Transactional(readOnly = true)
+    public ProductResponse getProductById(Long id) {
+
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
-        return productMapper.toResponse(product);
+
+        ProductResponse response = productMapper.toResponse(product);
+
+        List<ProductVariant> variants = productVariantRepository.findByProductId(product.getId());
+        response.setVariants(productVariantMapper.toResponseList(variants));
+
+
+        int totalStock = variants.stream()
+                .mapToInt(v -> v.getStock() == null ? 0 : v.getStock())
+                .sum();
+        response.setTotalStock(totalStock);
+
+
+        if (response.getImages() != null && !response.getImages().isEmpty()) {
+            response.setThumbnail(response.getImages().get(0));
+        }
+
+        response.setRating(5);
+        response.setSales(0L);
+
+        return response;
     }
+
 
 
     @Transactional

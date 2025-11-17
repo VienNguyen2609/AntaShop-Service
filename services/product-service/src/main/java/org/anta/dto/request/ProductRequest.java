@@ -18,8 +18,14 @@ public class ProductRequest {
 
     private String category;
 
+    private List<String> categories;
+
+    private Integer totalStock;
+
     private List<String> images;
 
-    private java.sql.Timestamp createdAt;
+    private List<ProductVariantRequest> variants;
+
+    private String createdAt;
 
 }
