@@ -1,6 +1,7 @@
 package org.anta.service;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.anta.dto.request.ProductRequest;
 import org.anta.dto.response.ProductResponse;
 import org.anta.entity.Product;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ProductService {
 
     private final ProductRepository productRepository;
@@ -89,11 +91,17 @@ public class ProductService {
     @Transactional
     public ProductResponse addProduct(ProductRequest productRequest){
 
-        Product entity = productMapper.toEntity(productRequest);
+        Product entity = productMapper.toEntityWithParents(productRequest);
 
         if (entity.getImages() == null) {
             entity.setImages(List.of());
         }
+
+
+        log.info("Saving product name={} variantsCount={} totalStock={}",
+                entity.getName(),
+                entity.getVariants() == null ? 0 : entity.getVariants().size(),
+                entity.getTotalStock());
 
         var saved = productRepository.save(entity);
 

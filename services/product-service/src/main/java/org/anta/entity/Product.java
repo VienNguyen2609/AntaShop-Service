@@ -32,9 +32,12 @@ public class Product {
 
     private String category;
 
+    @Column(name = "total_stock")
+    private Integer totalStock;
+
     @Convert(converter = JsonListConverter.class)
     @Column(columnDefinition = "json")
-    private List<String> images;
+    private List<String> images = new ArrayList<>();
 
     @Column(name = "created_at", updatable = false, insertable = false,
             columnDefinition = "timestamp default current_timestamp")

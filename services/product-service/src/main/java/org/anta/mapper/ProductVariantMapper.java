@@ -3,16 +3,14 @@ package org.anta.mapper;
 
 import org.anta.dto.request.ProductVariantRequest;
 import org.anta.dto.response.ProductVariantResponse;
-import org.anta.entity.Product;
 import org.anta.entity.ProductVariant;
-import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {ProductVariantMapper.class})
+@Mapper(componentModel = "spring")
 public interface ProductVariantMapper {
 
     @Mapping(target = "productId", source = "product.id")
@@ -27,12 +25,4 @@ public interface ProductVariantMapper {
 
     @Mapping(target = "product", ignore = true)
     void updateFromRequest(ProductVariantRequest req, @MappingTarget ProductVariant entity);
-
-    @AfterMapping
-    default void setParentForVariants(@MappingTarget Product product) {
-        if (product == null || product.getVariants() == null) return;
-        for (ProductVariant v : product.getVariants()) {
-            v.setProduct(product); // set parent
-        }
-    }
 }
