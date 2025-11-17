@@ -1,5 +1,6 @@
 package org.anta.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.anta.dto.request.ProductRequest;
 import org.anta.dto.response.ProductResponse;
 import org.anta.service.ProductService;
@@ -13,6 +14,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/product")
 @RequiredArgsConstructor
+@Slf4j
 public class ProductController {
 
     private final ProductService productService;
@@ -29,8 +31,8 @@ public class ProductController {
 
     @PostMapping("/add")
     public ResponseEntity<ProductResponse> addProduct(@RequestBody ProductRequest productRequest){
-        //log.info("ADD productRequest: {}", productRequest);            // <-- log toàn bộ DTO
-        //log.info("variants: {}", productRequest.getVariants());
+        log.info("ADD productRequest: {}", productRequest);            // <-- log toàn bộ DTO
+        log.info("variants: {}", productRequest.getVariants());
         ProductResponse productResponse = productService.addProduct(productRequest);
         return ResponseEntity.ok(productResponse);
     }

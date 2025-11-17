@@ -2,6 +2,7 @@ package org.anta.dto.response;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class ProductResponse {
 
     private String description;
 
-    private Double price;
+    private BigDecimal price;
 
     private String category;
 

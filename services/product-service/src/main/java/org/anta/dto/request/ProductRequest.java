@@ -2,6 +2,7 @@ package org.anta.dto.request;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -14,7 +15,7 @@ public class ProductRequest {
 
     private String description;
 
-    private Double price;
+    private BigDecimal price;
 
     private String category;
 
@@ -25,7 +26,5 @@ public class ProductRequest {
     private List<String> images;
 
     private List<ProductVariantRequest> variants;
-
-    private String createdAt;
 
 }
